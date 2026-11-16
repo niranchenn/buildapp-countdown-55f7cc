@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>BuildApp Hackathon 2026, starting soon</title>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="build" content="20261116204245"><title>BuildApp Hackathon 2026, starting soon</title>
 <style>/* latin-ext */
 @font-face {
   font-family: 'Lilita One';
@@ -581,6 +581,8 @@ const draw = () => {
 };
 const fit = () => { const d = document.documentElement, w = d.clientWidth || innerWidth, h = d.clientHeight || innerHeight; if (w && h) d.style.setProperty("--s", Math.min(w / 1920, h / 1080)); };
 setInterval(fit, 1000);
+const BUILD = document.querySelector('meta[name="build"]')?.content || "";
+if (location.protocol.startsWith("http")) setInterval(() => fetch(location.pathname + "?v=" + Date.now(), { cache: "no-store" }).then(r => r.ok ? r.text() : "").then(t => { const m = t.match(/<meta name="build" content="([^"]+)"/); if (m && BUILD && m[1] !== BUILD) location.reload(); }).catch(() => {}), 120000);
 addEventListener("resize", fit);
 fit();
 draw();
